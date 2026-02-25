@@ -1,10 +1,10 @@
-import streamlit as st
-import numpy as np
+import os
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
 
-# Load model
-model = load_model("deep_leaf_model.h5")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "deep_leaf_model.h5")
+
+model = load_model(MODEL_PATH)
 
 st.title("Deep Leaf - Crop Disease Detection")
 st.write("Upload a leaf image to detect crop disease.")
@@ -23,4 +23,5 @@ if uploaded_file is not None:
 
     st.image(uploaded_file, caption="Uploaded Leaf Image")
     st.success(f"Predicted Class Index: {class_index}")
+
     st.info(f"Confidence: {confidence*100:.2f}%")
